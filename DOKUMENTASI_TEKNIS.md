@@ -47,6 +47,7 @@ Prototipe ini menggunakan arsitektur berbasis layanan (service-oriented) yang te
 - **`/sipsi-api-ai`**: Layanan AI berbasis Python. Mencakup model BERT dan RoBERTa yang telah dilatih serta konfigurasi Docker.
 - **`/zkp-identity-backend`**: Layanan Node.js untuk mengelola data identitas, Merkle root, dan pembuatan bukti.
 - **`/zkp-identity-proof`**: "Laboratorium Kriptografi". Berisi file sirkuit `.circom`, file `.zkey`, dan kontrak verifikasi.
+- **`/Raw Transaction Data`**: Berisi data transaksi mentah dalam format CSV dari blockchain untuk keperluan audit dan referensi historis.
 
 ### **Sistem Dasar**
 - **`/sipsi-base`**: (Hanya Referensi) Sistem SIPSI asli berbasis Laravel.
