@@ -1,0 +1,9 @@
+node_modules
+.env
+dist
+uploads
+ipfs/volumes/cluster/ipfs-cluster1
+ipfs/volumes/cluster/ipfs-cluster2
+ipfs/volumes/node/data1
+ipfs/volumes/node/data2
+app.log

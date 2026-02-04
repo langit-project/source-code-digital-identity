@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+AI/app/
+AI/NER-INDO
+AI/pretrainedModel
+AI/SavedWeight
+AI/__pycache__/
+*.py[cod]
+AI/db/
+rest-api/ipfs/volumes/
+rest-api/ipfs/swarm.key
+.env

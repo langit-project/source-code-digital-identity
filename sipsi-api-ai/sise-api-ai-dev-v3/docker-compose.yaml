@@ -1,0 +1,163 @@
+services:
+  ipfs-node1:
+    image: ipfs-node:latest
+    container_name: ipfs-node
+    networks:
+      - ipfs
+    build:
+      context: ./rest-api/ipfs
+      dockerfile: Dockerfile
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+    ports:
+      - "4001:4001"
+      - "4001:4001/udp"
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - ./rest-api/ipfs/init.sh:/usr/local/bin/start_ipfs
+      - ./rest-api/ipfs/volumes/node/data1:/data/ipfs
+      - ./rest-api/ipfs/swarm.key:/data/ipfs/swarm.key
+
+  ipfs-node2:
+    image: ipfs-node2:latest
+    container_name: ipfs-node2
+    networks:
+      - ipfs
+    build:
+      context: ./rest-api/ipfs
+      dockerfile: Dockerfile
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+    ports:
+      - "4002:4001"
+      - "4002:4001/udp"
+      - "5002:5001"
+      - "8081:8080"
+    volumes:
+      - ./rest-api/ipfs/init.sh:/usr/local/bin/start_ipfs
+      - ./rest-api/ipfs/volumes/node/data2:/data/ipfs
+      - ./rest-api/ipfs/swarm.key:/data/ipfs/swarm.key
+
+  ipfs-cluster1:
+    image: ipfs/ipfs-cluster:stable
+    container_name: ipfs-cluster
+    networks:
+      - ipfs
+    depends_on:
+      - ipfs-node1
+    environment:
+      CLUSTER_PEERNAME: "cluster"
+      CLUSTER_SECRET: ${CLUSTER_SECRET}
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs-node1/tcp/5001
+      CLUSTER_CRDT_TRUSTERPEERS: "*"
+      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
+      CLUSTER_MONITORPINGINTERVAL: 2s
+    ports:
+      - "9094:9094" # http api
+      - "9095:9095" # proxy api
+      - "9096:9096" # cluster swarm, other peers connect via this port
+    volumes:
+      - ./rest-api/ipfs/volumes/cluster/ipfs-cluster:/data/ipfs-cluster
+
+  ipfs-cluster2:
+    image: ipfs/ipfs-cluster:stable
+    container_name: ipfs-cluster2
+    networks:
+      - ipfs
+    depends_on:
+      - ipfs-node2
+    environment:
+      CLUSTER_PEERNAME: "cluster2"
+      CLUSTER_SECRET: ${CLUSTER_SECRET}
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs-node2/tcp/5001
+      CLUSTER_CRDT_TRUSTERPEERS: "*"
+      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
+      CLUSTER_MONITORPINGINTERVAL: 2s
+    ports:
+      - "9194:9094" # http api
+      - "9195:9095" # proxy api
+      - "9196:9096" # cluster swarm, other peers connect via this port
+    volumes:
+      - ./rest-api/ipfs/volumes/cluster/ipfs-cluster2:/data/ipfs-cluster
+  
+  hardhat:
+    image: hardhat:latest
+    container_name: hardhat
+    build:
+      context: ./contract
+    volumes:
+      # - ./contract:/usr/src/app
+      - ./rest-api:/usr/src/rest-api
+    ports:
+      - "8545:8545"
+    environment:
+      ADMIN_PRIVATE_KEY: ${ADMIN_PRIVATE_KEY}
+      PANTERA_PRIVATE_KEY: ${PANTERA_PRIVATE_KEY}
+      MAJELIS_PRIVATE_KEY: ${MAJELIS_PRIVATE_KEY}
+    networks:
+      - hardhat
+
+  blockchain-service:
+    image: blockchain-service:latest
+    container_name: blockchain-service
+    build:
+      context: ./rest-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - ipfs
+      - hardhat
+    # volumes:
+    #   - ./rest-api:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - HARDHAT_NETWORK=http://hardhat:8545
+    depends_on:
+      - hardhat
+
+  db:
+    image: postgres:12.17
+    container_name: db
+    environment:
+      POSTGRES_USER: ananthayullian
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: classification_db
+    ports:
+      - "5458:5432"
+    volumes:
+      - ./AI/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ananthayullian -d classification_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  ai-service:
+    build:
+      context: ./AI
+      dockerfile: Dockerfile
+    container_name: ai-service
+    ports:
+      - "3031:3001"
+    volumes:
+      - ./AI:/app
+      - ./AI/pretrainedModel:/app/pretrainedModel
+      - ./AI/NER-INDO:/app/NER-INDO
+      - ./AI/db:/app/db
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - TF_CPP_MIN_LOG_LEVEL=2        # suppress TF warning logs
+    depends_on:
+      - db
+    restart: unless-stopped
+
+
+networks:
+  ipfs:
+    driver: bridge
+  hardhat:
+    driver: bridge

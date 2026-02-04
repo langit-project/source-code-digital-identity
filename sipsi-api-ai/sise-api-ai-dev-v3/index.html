@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIP API Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, button {
+      margin-bottom: 10px;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<h1>KIP API Interface</h1>
+
+<h2>Create Sengketa</h2>
+<form id="createForm">
+  <label for="id">Setup ID:</label>
+  <input type="text" id="id" name="id" required>
+  <label for="pemohon">Pemohon:</label>
+  <input type="text" id="pemohon" name="pemohon" required>
+  <button type="submit">Create</button>
+</form>
+<div id="createResult" class="result"></div>
+
+<h2>Reject Sengketa</h2>
+<form id="rejectForm">
+  <label for="rejectId">ID Sengketa:</label>
+  <input type="text" id="rejectId" name="rejectId" required>
+  <button type="submit">Reject</button>
+</form>
+<div id="rejectResult" class="result"></div>
+
+<h2>Upload File to IPFS</h2>
+<form id="uploadForm">
+  <label for="file">Select file to upload:</label>
+  <input type="file" id="file" name="file" required>
+  <button type="submit">Upload</button>
+</form>
+<div id="uploadResult" class="result"></div>
+
+<h2>Retrieve File from IPFS</h2>
+<form id="retrieveForm">
+  <label for="cid">Enter CID:</label>
+  <input type="text" id="cid" name="cid" required>
+  <button type="submit">Retrieve</button>
+</form>
+<div id="retrieveResult" class="result"></div>
+
+<h2>Verify Sengketa</h2>
+<form id="verifyForm">
+  <label for="verifyId">ID Sengketa:</label>
+  <input type="text" id="verifyId" name="verifyId" required>
+  <label for="documentCID">Document CID:</label>
+  <input type="text" id="documentCID" name="documentCID" required>
+  <button type="submit">Verify</button>
+</form>
+<div id="verifyResult" class="result"></div>
+
+<h2>Set Court Date</h2>
+<form id="setCourtDateForm">
+  <label for="courtId">ID Sengketa:</label>
+  <input type="text" id="courtId" name="courtId" required>
+  <label for="status">Status:</label>
+  <p>Terbuka = 1, Tertutup = 2</p>
+  <input type="text" id="status" name="status" required>
+  <label for="date">Date:</label>
+  <input type="datetime-local" id="date" name="date" required>
+  <button type="submit">Set Date</button>
+</form>
+<div id="setCourtDateResult" class="result"></div>
+
+<h2>Make Final Decision</h2>
+<form id="finalDecisionForm">
+  <label for="finalId">ID Sengketa:</label>
+  <input type="text" id="finalId" name="finalId" required>
+  <button type="submit">Make Final Decision</button>
+</form>
+<div id="finalDecisionResult" class="result"></div>
+
+<script>
+const apiBaseUrl = 'http://localhost:3000/api';
+
+function displayResult(resultDivId, message, isError = false) {
+  const resultDiv = document.getElementById(resultDivId);
+  resultDiv.innerHTML = '';
+  const p = document.createElement('p');
+  p.className = isError ? 'error' : 'success';
+  p.textContent = message;
+  resultDiv.appendChild(p);
+}
+
+async function handleApiRequest(url, method, body, resultDivId, successMessage, errorMessage) {
+  try {
+    const options = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+    };
+    if (body) options.body = JSON.stringify(body);
+
+    const response = await fetch(url, options);
+    const result = await response.json();
+    if (!response.ok) throw new Error(errorMessage);
+    displayResult(resultDivId, successMessage(result));
+  } catch (error) {
+    displayResult(resultDivId, `Error: ${errorMessage}`, true);
+  }
+}
+
+document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const formData = new FormData();
+  formData.append('file', document.getElementById('file').files[0]);
+  try {
+    const response = await fetch(`${apiBaseUrl}/add`, {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.message || 'File upload failed');
+    displayResult('uploadResult', `File uploaded. Name: ${result.name || ''}, CID: ${result.cid || ''}, Size: ${result.size || ''}, Allocations: ${(result.allocations || []).join(', ')}`);
+  } catch (error) {
+    displayResult('uploadResult', `Error: Upload gagal`, true);
+  }
+});
+
+document.getElementById('retrieveForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const cid = document.getElementById('cid').value;
+  try {
+    const response = await fetch(`${apiBaseUrl}/cat/${cid}`, {
+      method: 'GET'
+    });
+    if (!response.ok) throw new Error('File not found');
+    const blob = await response.blob();
+    const metadataResponse = await fetch(`${apiBaseUrl}/metadata/${cid}`, {
+      method: 'GET'
+    });
+    const metadata = await metadataResponse.json();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${metadata.name}${metadata.extension}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    displayResult('retrieveResult', 'File retrieved successfully');
+  } catch (error) {
+    displayResult('retrieveResult', `Error: download gagal`, true);
+  }
+});
+
+document.getElementById('createForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const id = document.getElementById('id').value;
+  const pemohon = document.getElementById('pemohon').value;
+  await handleApiRequest(
+    `${apiBaseUrl}/create`,
+    'POST',
+    { id, pemohon },
+    'createResult',
+    result => `Sengketa created. Transaction Hash: ${result.data.hash}`,
+    'Failed to create sengketa'
+  );
+});
+
+document.getElementById('rejectForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const id = document.getElementById('rejectId').value;
+  await handleApiRequest(
+    `${apiBaseUrl}/reject`,
+    'POST',
+    { id },
+    'rejectResult',
+    result => `Sengketa rejected. Transaction Hash: ${result.data.hash}`,
+    'Failed to reject sengketa'
+  );
+});
+
+document.getElementById('verifyForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const id = document.getElementById('verifyId').value;
+  const documentCID = document.getElementById('documentCID').value;
+  await handleApiRequest(
+    `${apiBaseUrl}/verify`,
+    'POST',
+    { id, document: documentCID },
+    'verifyResult',
+    result => `Sengketa verified. Transaction Hash: ${result.data.hash}`,
+    'Failed to verify sengketa'
+  );
+});
+
+document.getElementById('setCourtDateForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const id = document.getElementById('courtId').value;
+  const status = document.getElementById('status').value;
+  const date = document.getElementById('date').value;
+  await handleApiRequest(
+    `${apiBaseUrl}/set-court-date`,
+    'POST',
+    { id, status, date },
+    'setCourtDateResult',
+    result => `Court date set. Transaction Hash: ${result.data.hash}`,
+    'Failed to set court date'
+  );
+});
+
+document.getElementById('finalDecisionForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const id = document.getElementById('finalId').value;
+  await handleApiRequest(
+    `${apiBaseUrl}/final`,
+    'POST',
+    { id },
+    'finalDecisionResult',
+    result => `Final decision made. Transaction Hash: ${result.data.hash}`,
+    'Failed to make final decision'
+  );
+});
+</script>
+
+</body>
+</html>

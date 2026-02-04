@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Informasi</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1e960109ba.js" crossorigin="anonymous"></script>
+    <style>
+        .sidebar {
+            background-color: #4e73df;
+            height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .sidebar .nav-link {
+            color: white;
+        }
+        .sidebar .nav-link.active {
+            background-color: #fff;
+            color: #4e73df;
+            border-radius: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header img {
+            height: 50px;
+        }
+        .header span {
+            font-weight:500;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 0;
+        }
+        .form-control {
+            box-shadow: none;
+            border: none;
+            border-bottom: 2px solid #007BFD;
+            border-radius: 0px;
+        }
+        .btn-kirim {
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+    <script>
+        function classifyText(event) {
+            event.preventDefault();
+            const text = document.getElementById('text').value;
+            fetch('/api/classify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h5 class="card-title">Hasil : ${data.text}</h5>
+                    <p class="card-text">
+                        Prediksi Kategori : ${data.predicted_category}<br>
+                        Prediksi Detail Kategori : ${data.predicted_detail_category}<br>
+                        Prediksi Pasal : ${data.predicted_pasal}<br>
+                        Informasi : ${data.informasi}<br>
+                    </p>
+                    <a href="#" class="btn btn-primary shadow-none" onclick="confirmClassification('${data.text}', '${data.predicted_category}', '${data.predicted_detail_category}', '${data.predicted_pasal}', '${data.informasi}')">Konfirmasi</a>
+                    <a href="#" class="btn btn-warning shadow-none" data-toggle="modal" data-target="#correctModal">Koreksi</a>
+                `;
+                document.getElementById('corrected_category').value = data.predicted_category;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function confirmClassification(text, predictedCategory, predictedDetailCategories, predictedPasal, informasi) {
+            fetch('/api/confirm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: text,
+                    predicted_category: predictedCategory,
+                    predicted_detail_categories: predictedDetailCategories,
+                    predicted_pasal: predictedPasal,
+                    informasi: informasi
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                clearResult();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function correctClassification(event) {
+            event.preventDefault();
+            const text = document.getElementById('text').value;
+            const correctedCategory = document.getElementById('corrected_category').value;
+
+            fetch('/api/correct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: text,
+                    corrected_category: correctedCategory
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                clearResult();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function clearResult() {
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('text').value = '';
+        }
+    </script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <div class="text-center mb-4">
+                <h4>Chatbot Komisi Informasi</h4>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index"><i class="fa-solid fa-scale-balanced"></i>&nbsp;&nbsp;Rekomendasi Informasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="validasi-data"><i class="fa-solid fa-square-check"></i>&nbsp;&nbsp;Validasi Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="verifikasi-dokumen"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;Verifikasi Dokumen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>&nbsp;&nbsp;Dashboard SISE</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 content">
+            <div class="header mb-5">
+                <h4>Rekomendasi Informasi</h4>
+                <div>
+                    <span>Majelis Komisioner</span>
+                    <img src="https://avatar.iran.liara.run/public/40" alt="User" class="rounded-circle ml-2" style="width: 40px; height: auto;">
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <textarea type="text" id="text" class="form-control w-100 shadow-none" placeholder="Konsultasikan masalah anda..."></textarea>
+                <button class="btn btn-primary btn-kirim shadow-none" onclick="classifyText(event)">Kirim</button>
+            </div>
+
+            <div class="card border-0">
+                <div class="card-body" id="result">
+                    <!-- Search results will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Correction -->
+<div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="correctModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="correctModalLabel">Koreksi Kategori</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="correctClassification(event)">
+                    <label for="corrected_category">Kategori:</label><br>
+                    <select id="corrected_category" name="corrected_category" class="form-control shadow-none">
+                        <!-- Ensure these options match your backend category IDs -->
+                        <option value="0">Kategori 1</option>
+                        <option value="5">Kategori 2</option>
+                        <option value="6">Kategori 3</option>
+                        <option value="7">Kategori 4</option>
+                        <option value="8">Kategori 5</option>
+                        <option value="9">Kategori 6</option>
+                        <option value="10">Kategori 7</option>
+                        <option value="11">Kategori 8</option>
+                        <option value="12">Kategori 9</option>
+                        <option value="1">Kategori 10</option>
+                        <option value="2">Kategori 11</option>
+                        <option value="3">Kategori 12</option>
+                        <option value="4">Kategori 13</option>
+                    </select><br>
+                    <input type="submit" value="Simpan" class="btn btn-primary shadow-none">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validasi Data</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1e960109ba.js" crossorigin="anonymous"></script>
+    <style>
+        .sidebar {
+            background-color: #4e73df;
+            height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .sidebar .nav-link {
+            color: white;
+        }
+        .sidebar .nav-link.active {
+            background-color: #fff;
+            color: #4e73df;
+            border-radius: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header img {
+            height: 50px;
+        }
+        .header span {
+            font-weight: 500;
+        }
+        .d-flex.align-items-center p {
+            width: 150px;
+        }
+        .form-control.pilih-kategori {
+            width: 200px;
+            box-shadow: none;
+            border: none;
+            border-bottom: 2px solid #007BFD;
+            border-radius: 0px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/api/validasi-data')
+                .then(response => response.json())
+                .then(results => {
+                    const resultContainer = document.getElementById('result');
+                    let htmlContent = '<form id="validation-form">';
+                    results.forEach(result => {
+                        htmlContent += `
+                        <div class="row mb-3 pb-3 border-bottom">
+                            <div class="col-12">
+                                <h5>${result.text}</h5>
+                                <div class="d-flex align-items-center">
+                                    <p class="mb-0 mr-2">Koreksi Kategori</p>
+                                    <select name="${result.id}" class="form-control pilih-kategori shadow-none">
+                                        ${[...Array(13)].map((_, i) => `<option value="Kategori ${i+1}" ${result.corrected_category === `Kategori ${i+1}` ? 'selected' : ''}>Kategori ${i+1}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    htmlContent += `
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit">Konfirmasi</button>
+                        </div>
+                    </div></form>`;
+                    resultContainer.innerHTML = htmlContent;
+
+                    document.getElementById('validation-form').addEventListener('submit', function (event) {
+                        event.preventDefault();
+                        const formData = new FormData(event.target);
+
+                        fetch('/api/validate', {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            window.location.reload();  // Reload the page after validation
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error: Failed to validate data.');
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerHTML = `<div class="alert alert-danger">Failed to load data.</div>`;
+                });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <div class="text-center mb-4">
+                    <h4>Chatbot Komisi Informasi</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index"><i class="fa-solid fa-scale-balanced"></i>&nbsp;&nbsp;Rekomendasi Informasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="validasi-data"><i class="fa-solid fa-square-check"></i>&nbsp;&nbsp;Validasi Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="verifikasi-dokumen"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;Verifikasi Dokumen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>&nbsp;&nbsp;Dashboard SISE</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10 content">
+                <div class="header mb-5">
+                    <h4>Validasi Data</h4>
+                    <div>
+                        <span>Majelis Komisioner</span>
+                        <img src="https://avatar.iran.liara.run/public/40" alt="User" class="rounded-circle ml-2" style="width: 40px; height: auto;">
+                    </div>
+                </div>
+
+                <div class="card mt-3 border-0">
+                    <div class="card-body" id="result">
+                        <!-- Data will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

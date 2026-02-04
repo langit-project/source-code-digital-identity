@@ -1,0 +1,55 @@
+{
+  "name": "benevolence",
+  "description": "Smart Contract from IBF NEXT for Benevolence",
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "accounts": "hardhat accounts",
+    "rename-contract": "hardhat rename-contract",
+    "compile": "hardhat compile --force",
+    "test": "hardhat test",
+    "test-extended": "EXTENDED_TESTS=1 hardhat test",
+    "test-gas": "REPORT_GAS=1 hardhat test",
+    "local-node": "hardhat node",
+    "deploy": "hardhat run scripts/1_deploy.ts",
+    "deploy-local": "hardhat run scripts/1.1_deploy_local.ts",
+    "deploy-token": "hardhat run scripts/1.1_deploy_token.ts",
+    "verify": "hardhat verify --constructor-args config/ContractArguments.ts",
+    "set-admin": "hardhat run scripts/2_permissionAddress.ts",
+    "set-payment": "hardhat run scripts/3_contractPayment.ts",
+    "set-royalties": "hardhat run scripts/4_platformReceive.ts"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.4",
+    "@nomicfoundation/hardhat-verify": "^2.0.4",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "@openzeppelin/contracts": "^5.0.0",
+    "@openzeppelin/hardhat-upgrades": "^3.2.0",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.9",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "^20.8.10",
+    "chai": "^4.3.10",
+    "chai-as-promised": "^7.1.1",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.8.1",
+    "hardhat": "2.22.6",
+    "hardhat-gas-reporter": "^1.0.9",
+    "keccak256": "^1.0.6",
+    "solidity-coverage": "^0.8.5",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.2",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "harhdat": "^1.0.1"
+  }
+}

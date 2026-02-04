@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Classification</title>
+    <script>
+        let classificationId = null;
+
+        function classifyText(event) {
+            event.preventDefault();
+            const text = document.getElementById('text').value;
+            fetch('/classify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h2>Classification Result</h2>
+                    <p><strong>Text:</strong> ${data.text}</p>
+                    <p><strong>Predicted Category:</strong> ${data.predicted_category}</p>
+                    <p><strong>Predicted Detail Categories:</strong> ${data.predicted_detail_category}</p>
+                    <p><strong>Predicted Pasal:</strong> ${data.predicted_pasal}</p>
+                    <p><strong>Informasi:</strong> ${data.informasi}</p>
+                    <button onclick="confirmClassification('${data.text}', '${data.predicted_category}', '${data.predicted_detail_category}', '${data.predicted_pasal}', '${data.informasi}')">Confirm</button>
+                    <h3>Correct the Classification</h3>
+                    <form onsubmit="correctClassification(event)">
+                        <label for="corrected_category">Corrected Category:</label><br>
+                        <select id="corrected_category" name="corrected_category">
+                            <option value="0">Kategori 1</option>
+                            <option value="5">Kategori 2</option>
+                            <option value="6">Kategori 3</option>
+                            <option value="7">Kategori 4</option>
+                            <option value="8">Kategori 5</option>
+                            <option value="9">Kategori 6</option>
+                            <option value="10">Kategori 7</option>
+                            <option value="11">Kategori 8</option>
+                            <option value="12">Kategori 9</option>
+                            <option value="1">Kategori 10</option>
+                            <option value="2">Kategori 11</option>
+                            <option value="3">Kategori 12</option>
+                            <option value="4">Kategori 13</option>
+                        </select><br><br>
+                        <input type="submit" value="Submit Correction">
+                    </form>
+                `;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function confirmClassification(text, predictedCategory, predictedDetailCategories, predictedPasal, informasi) {
+            fetch('/confirm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    text: text,
+                    predicted_category: predictedCategory,
+                    predicted_detail_categories: predictedDetailCategories,
+                    predicted_pasal: predictedPasal,
+                    informasi: informasi
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                clearResult();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function correctClassification(event) {
+            event.preventDefault();
+            const text = document.getElementById('text').value;
+            const correctedCategory = document.getElementById('corrected_category').value;
+
+            fetch('/correct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    text: text,
+                    corrected_category: correctedCategory
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                clearResult();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function clearResult() {
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('text').value = '';
+        }
+    </script>
+</head>
+<body>
+    <h1>Text Classification</h1>
+    <form onsubmit="classifyText(event)">
+        <label for="text">Enter text:</label><br><br>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Classify">
+    </form>
+    <div id="result"></div>
+</body>
+</html>

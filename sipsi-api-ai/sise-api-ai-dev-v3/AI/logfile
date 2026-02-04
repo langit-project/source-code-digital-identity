@@ -1,0 +1,235 @@
+2024-06-29 23:44:37.296 WIB [74527] FATAL:  lock file "postmaster.pid" already exists
+2024-06-29 23:44:37.296 WIB [74527] HINT:  Is another postmaster (PID 39863) running in data directory "/Users/ananthayullian/Documents/Python/Langit/API/db"?
+2024-06-29 23:45:14.061 WIB [74699] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-06-29 23:45:14.063 WIB [74699] LOG:  listening on IPv6 address "::1", port 5432
+2024-06-29 23:45:14.063 WIB [74699] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-06-29 23:45:14.065 WIB [74699] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-06-29 23:45:14.092 WIB [74700] LOG:  database system was interrupted; last known up at 2024-06-29 20:34:26 WIB
+2024-06-29 23:45:14.153 WIB [74700] LOG:  database system was not properly shut down; automatic recovery in progress
+2024-06-29 23:45:14.160 WIB [74700] LOG:  redo starts at 0/16C4458
+2024-06-29 23:45:14.160 WIB [74700] LOG:  invalid record length at 0/16C4540: wanted 24, got 0
+2024-06-29 23:45:14.160 WIB [74700] LOG:  redo done at 0/16C4508
+2024-06-29 23:45:14.170 WIB [74699] LOG:  database system is ready to accept connections
+2024-07-03 21:18:44.094 WIB [25229] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-03 21:18:44.096 WIB [25229] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-03 21:18:44.096 WIB [25229] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-03 21:18:44.097 WIB [25229] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-03 21:18:44.131 WIB [25230] LOG:  database system was interrupted; last known up at 2024-06-30 00:35:14 WIB
+2024-07-03 21:18:44.245 WIB [25230] LOG:  database system was not properly shut down; automatic recovery in progress
+2024-07-03 21:18:44.250 WIB [25230] LOG:  redo starts at 0/16C6E40
+2024-07-03 21:18:44.250 WIB [25230] LOG:  invalid record length at 0/16C6F28: wanted 24, got 0
+2024-07-03 21:18:44.250 WIB [25230] LOG:  redo done at 0/16C6EF0
+2024-07-03 21:18:44.263 WIB [25229] LOG:  database system is ready to accept connections
+2024-07-04 00:18:08.574 WIB [25229] LOG:  received smart shutdown request
+2024-07-04 00:18:08.579 WIB [25229] LOG:  background worker "logical replication launcher" (PID 25236) exited with exit code 1
+2024-07-04 00:18:08.579 WIB [25231] LOG:  shutting down
+2024-07-04 00:18:08.591 WIB [25229] LOG:  database system is shut down
+2024-07-04 16:33:33.966 WIB [63323] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-04 16:33:33.973 WIB [63323] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-04 16:33:33.976 WIB [63323] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-04 16:33:33.977 WIB [63323] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-04 16:33:34.004 WIB [63324] LOG:  database system was shut down at 2024-07-04 00:18:08 WIB
+2024-07-04 16:33:34.014 WIB [63323] LOG:  database system is ready to accept connections
+2024-07-04 16:38:01.850 WIB [63952] FATAL:  database "user_db" does not exist
+2024-07-04 16:38:41.125 WIB [64013] ERROR:  syntax error at or near "user" at character 14
+2024-07-04 16:38:41.125 WIB [64013] STATEMENT:  CREATE TABLE user (
+	    id SERIAL PRIMARY KEY,
+	    nomorSurat TEXT NOT NULL,
+	    namaPemohon TEXT NOT NULL,
+	    namaTermohon TEXT NOT NULL
+	);
+2024-07-04 16:39:10.200 WIB [64013] ERROR:  syntax error at or near "user" at character 14
+2024-07-04 16:39:10.200 WIB [64013] STATEMENT:  CREATE TABLE user (
+	    id SERIAL PRIMARY KEY,
+	    nomorSurat TEXT NOT NULL,
+	    namaPemohon TEXT NOT NULL,
+	    namaTermohon TEXT NOT NULL
+	);
+2024-07-04 16:39:13.977 WIB [64013] ERROR:  syntax error at or near "user" at character 14
+2024-07-04 16:39:13.977 WIB [64013] STATEMENT:  CREATE TABLE user (
+	    id SERIAL PRIMARY KEY,
+	    nomorSurat TEXT NOT NULL,
+	    namaPemohon TEXT NOT NULL,
+	    namaTermohon TEXT NOT NULL
+	);
+2024-07-04 16:39:26.695 WIB [64013] ERROR:  syntax error at or near "user" at character 14
+2024-07-04 16:39:26.695 WIB [64013] STATEMENT:  CREATE TABLE user(
+	    id SERIAL PRIMARY KEY,
+	    nomorSurat TEXT NOT NULL,
+	    namaPemohon TEXT NOT NULL,
+	    namaTermohon TEXT NOT NULL
+	);
+2024-07-04 20:05:17.802 WIB [90442] FATAL:  database "nanthajoe" does not exist
+2024-07-04 20:07:30.944 WIB [90795] FATAL:  database "user_data" does not exist
+2024-07-04 20:08:24.104 WIB [90919] FATAL:  role "pgadmin" does not exist
+2024-07-04 20:09:04.906 WIB [91039] ERROR:  role "nanthajoe2" already exists
+2024-07-04 20:09:04.906 WIB [91039] STATEMENT:  CREATE ROLE nanthajoe2 PASSWORD 'md532353c95c2df76d68fbada02667fc1c9' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+2024-07-04 20:15:30.389 WIB [91914] ERROR:  relation "user_data" does not exist at character 13
+2024-07-04 20:15:30.389 WIB [91914] STATEMENT:  INSERT INTO user_data (nomorSurat, namaPemohon, namaTermohon) 
+	VALUES ('022/V/KIP-PS-A/2019', 'Safarudin, S.H.', 'Badan Pengawas Keuangan dan Pembangunan');
+2024-07-04 20:15:57.368 WIB [91914] ERROR:  relation "datauser" already exists
+2024-07-04 20:15:57.368 WIB [91914] STATEMENT:  CREATE TABLE dataUser(
+	    id SERIAL PRIMARY KEY,
+	    nomorSurat TEXT NOT NULL,
+	    namaPemohon TEXT NOT NULL,
+	    namaTermohon TEXT NOT NULL
+	);
+2024-07-04 20:16:32.766 WIB [91914] ERROR:  relation "userdata" does not exist at character 15
+2024-07-04 20:16:32.766 WIB [91914] STATEMENT:  SELECT * FROM userData;
+2024-07-04 20:23:56.102 WIB [93090] FATAL:  role "username" does not exist
+2024-07-04 20:35:07.783 WIB [94660] ERROR:  column other_table.nomorsurat does not exist at character 42
+2024-07-04 20:35:07.783 WIB [94660] STATEMENT:  SELECT other_table.id AS other_table_id, other_table.nomorsurat AS other_table_nomorsurat, other_table.namapemohon AS other_table_namapemohon, other_table.namatermohon AS other_table_namatermohon 
+	FROM other_table 
+	WHERE other_table.nomorsurat = '022/V/KIP-PS-A/2019' 
+	 LIMIT 1
+2024-07-04 20:41:46.996 WIB [95726] ERROR:  column other_table.nomorSurat does not exist at character 42
+2024-07-04 20:41:46.996 WIB [95726] STATEMENT:  SELECT other_table.id AS other_table_id, other_table."nomorSurat" AS "other_table_nomorSurat", other_table."namaPemohon" AS "other_table_namaPemohon", other_table."namaTermohon" AS "other_table_namaTermohon" 
+	FROM other_table 
+	WHERE other_table."nomorSurat" = '022/V/KIP-PS-A/2019' 
+	 LIMIT 1
+2024-07-05 02:40:15.001 WIB [47549] ERROR:  syntax error at or near "INTO" at character 31
+2024-07-05 02:40:15.001 WIB [47549] STATEMENT:  SELECT * FROM dataUser
+	INSERT INTO dataUser (nomorsurat, namapemohon, namatermohon) 
+	VALUES ('022/V/KIP-PS-A/2019', 'Safarudin, S.H.', 'Badan Pengawas Keuangan dan Pembangunan');
+2024-07-05 02:44:08.201 WIB [48168] ERROR:  column dataUser.nomorsurat does not exist at character 40
+2024-07-05 02:44:08.201 WIB [48168] HINT:  Perhaps you meant to reference the column "dataUser.nomorSurat".
+2024-07-05 02:44:08.201 WIB [48168] STATEMENT:  SELECT "dataUser".id AS "dataUser_id", "dataUser".nomorsurat AS "dataUser_nomorsurat", "dataUser".namapemohon AS "dataUser_namapemohon", "dataUser".namatermohon AS "dataUser_namatermohon" 
+	FROM "dataUser"
+2024-07-05 07:33:47.290 WIB [50214] LOG:  unexpected EOF on client connection with an open transaction
+2024-07-05 07:34:50.204 WIB [50399] ERROR:  permission denied for table dataUser
+2024-07-05 07:34:50.204 WIB [50399] STATEMENT:  SELECT "dataUser".id AS "dataUser_id", "dataUser"."nomorSurat" AS "dataUser_nomorSurat", "dataUser"."namaPemohon" AS "dataUser_namaPemohon", "dataUser"."namaTermohon" AS "dataUser_namaTermohon" 
+	FROM "dataUser" 
+	WHERE "dataUser".id = 1
+2024-07-05 07:39:13.720 WIB [50842] LOG:  unexpected EOF on client connection with an open transaction
+2024-07-05 07:40:59.448 WIB [51252] ERROR:  table "datauser" does not exist
+2024-07-05 07:40:59.448 WIB [51252] STATEMENT:  DROP TABLE dataUser;
+2024-07-05 07:46:18.524 WIB [52052] FATAL:  lock file "postmaster.pid" already exists
+2024-07-05 07:46:18.524 WIB [52052] HINT:  Is another postmaster (PID 63323) running in data directory "/Users/ananthayullian/Documents/Python/Docker/Coba3/db"?
+2024-07-05 07:46:27.083 WIB [63323] LOG:  received fast shutdown request
+2024-07-05 07:46:27.083 WIB [63323] LOG:  aborting any active transactions
+2024-07-05 07:46:27.150 WIB [63323] LOG:  background worker "logical replication launcher" (PID 63330) exited with exit code 1
+2024-07-05 07:46:27.150 WIB [63325] LOG:  shutting down
+2024-07-05 07:46:27.163 WIB [63323] LOG:  database system is shut down
+2024-07-05 07:46:34.747 WIB [52118] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-05 07:46:34.751 WIB [52118] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-05 07:46:34.751 WIB [52118] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-05 07:46:34.752 WIB [52118] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-05 07:46:34.779 WIB [52119] LOG:  database system was shut down at 2024-07-05 07:46:27 WIB
+2024-07-05 07:46:34.791 WIB [52118] LOG:  database system is ready to accept connections
+2024-07-05 07:46:43.438 WIB [52152] FATAL:  database "nanthajoe" does not exist
+2024-07-05 07:46:47.621 WIB [52170] FATAL:  database "nanthajoe2" does not exist
+2024-07-05 07:46:54.174 WIB [52193] FATAL:  database "ananthayullian" does not exist
+2024-07-05 07:47:08.888 WIB [52237] FATAL:  role "user_data" does not exist
+2024-07-05 07:50:08.071 WIB [52722] ERROR:  relation "dataUser" does not exist at character 201
+2024-07-05 07:50:08.071 WIB [52722] STATEMENT:  SELECT "dataUser".id AS "dataUser_id", "dataUser"."nomorSurat" AS "dataUser_nomorSurat", "dataUser"."namaPemohon" AS "dataUser_namaPemohon", "dataUser"."namaTermohon" AS "dataUser_namaTermohon" 
+	FROM "dataUser" 
+	WHERE "dataUser".id = 1
+2024-07-05 07:53:12.349 WIB [53157] ERROR:  relation "dataUser" does not exist at character 201
+2024-07-05 07:53:12.349 WIB [53157] STATEMENT:  SELECT "dataUser".id AS "dataUser_id", "dataUser"."nomorSurat" AS "dataUser_nomorSurat", "dataUser"."namaPemohon" AS "dataUser_namaPemohon", "dataUser"."namaTermohon" AS "dataUser_namaTermohon" 
+	FROM "dataUser" 
+	WHERE "dataUser".id = 1
+2024-07-05 07:54:09.117 WIB [53221] ERROR:  syntax error at or near "drop" at character 29
+2024-07-05 07:54:09.117 WIB [53221] STATEMENT:  drop table dataUser cascade
+	drop table dataUser cascade;
+2024-07-05 07:57:45.761 WIB [53827] ERROR:  column data_user.nomorSurat does not exist at character 38
+2024-07-05 07:57:45.761 WIB [53827] HINT:  Perhaps you meant to reference the column "data_user.nomorsurat".
+2024-07-05 07:57:45.761 WIB [53827] STATEMENT:  SELECT data_user.id AS data_user_id, data_user."nomorSurat" AS "data_user_nomorSurat", data_user."namaPemohon" AS "data_user_namaPemohon", data_user."namaTermohon" AS "data_user_namaTermohon" 
+	FROM data_user 
+	WHERE data_user.id = 1
+2024-07-05 08:03:16.628 WIB [54292] LOG:  unexpected EOF on client connection with an open transaction
+2024-07-05 11:06:58.503 WIB [72087] FATAL:  database "ananthayullian" does not exist
+2024-07-05 11:07:04.270 WIB [72112] FATAL:  database "ananthayullian" does not exist
+2024-07-05 11:19:57.367 WIB [52118] LOG:  received fast shutdown request
+2024-07-05 11:19:57.368 WIB [52118] LOG:  aborting any active transactions
+2024-07-05 11:19:57.416 WIB [52118] LOG:  background worker "logical replication launcher" (PID 52125) exited with exit code 1
+2024-07-05 11:19:57.418 WIB [52120] LOG:  shutting down
+2024-07-05 11:19:57.445 WIB [52118] LOG:  database system is shut down
+2024-07-05 11:21:09.223 WIB [75754] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-05 11:21:09.226 WIB [75754] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-05 11:21:09.226 WIB [75754] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-05 11:21:09.227 WIB [75754] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-05 11:21:09.257 WIB [75755] LOG:  database system was shut down at 2024-07-05 11:19:57 WIB
+2024-07-05 11:21:09.273 WIB [75754] LOG:  database system is ready to accept connections
+2024-07-05 15:01:40.093 WIB [29707] ERROR:  relation "user_data" does not exist at character 15
+2024-07-05 15:01:40.093 WIB [29707] STATEMENT:  select * from user_data;
+2024-07-05 22:08:11.054 WIB [33670] FATAL:  database "ananthayullian" does not exist
+2024-07-05 22:12:20.407 WIB [34677] FATAL:  database "ananthayullian" does not exist
+2024-07-05 23:07:24.136 WIB [46411] ERROR:  relation "user_data" does not exist at character 15
+2024-07-05 23:07:24.136 WIB [46411] STATEMENT:  SELECT * FROM user_data;
+2024-07-05 23:07:36.703 WIB [46411] ERROR:  relation "user_data" does not exist at character 15
+2024-07-05 23:07:36.703 WIB [46411] STATEMENT:  SELECT * FROM user_data;
+2024-07-05 23:08:02.204 WIB [46604] ERROR:  relation "user_data" does not exist at character 15
+2024-07-05 23:08:02.204 WIB [46604] STATEMENT:  SELECT * FROM user_data;
+2024-07-05 23:09:26.421 WIB [46834] ERROR:  database "user_data" already exists
+2024-07-05 23:09:26.421 WIB [46834] STATEMENT:  CREATE DATABASE user_data OWNER nanthajoe2;
+2024-07-05 23:10:59.556 WIB [47022] ERROR:  table "datauser" does not exist
+2024-07-05 23:10:59.556 WIB [47022] STATEMENT:  drop table dataUser cascade;
+2024-07-05 23:11:15.363 WIB [47022] ERROR:  table "datauser" does not exist
+2024-07-05 23:11:15.363 WIB [47022] STATEMENT:  drop table datauser cascade;
+2024-07-05 23:13:15.044 WIB [47022] ERROR:  syntax error at or near "dropdb" at character 1
+2024-07-05 23:13:15.044 WIB [47022] STATEMENT:  dropdb -f user_data
+	;
+2024-07-05 23:13:34.798 WIB [47022] ERROR:  syntax error at or near "with" at character 25
+2024-07-05 23:13:34.798 WIB [47022] STATEMENT:  drop database user_data with (force);
+2024-07-05 23:14:01.472 WIB [47548] ERROR:  database "database name" does not exist
+2024-07-05 23:14:01.472 WIB [47548] STATEMENT:  DROP DATABASE "database name";
+2024-07-05 23:15:14.783 WIB [47731] FATAL:  database "ananthayullian" does not exist
+2024-07-05 23:33:16.170 WIB [75754] LOG:  received smart shutdown request
+2024-07-05 23:33:16.177 WIB [75754] LOG:  background worker "logical replication launcher" (PID 75761) exited with exit code 1
+2024-07-05 23:33:16.177 WIB [75756] LOG:  shutting down
+2024-07-05 23:33:16.195 WIB [75754] LOG:  database system is shut down
+2024-07-08 07:45:57.161 WIB [2854] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-08 07:45:57.164 WIB [2854] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-08 07:45:57.164 WIB [2854] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-08 07:45:57.165 WIB [2854] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-08 07:45:57.187 WIB [2855] LOG:  database system was shut down at 2024-07-05 23:33:16 WIB
+2024-07-08 07:45:57.203 WIB [2854] LOG:  database system is ready to accept connections
+2024-07-08 09:08:01.259 WIB [4710] FATAL:  lock file "postmaster.pid" already exists
+2024-07-08 09:08:01.259 WIB [4710] HINT:  Is another postmaster (PID 2854) running in data directory "/Users/ananthayullian/Documents/Python/Docker/Coba3/db"?
+2024-07-08 22:50:19.392 WIB [2854] LOG:  received smart shutdown request
+2024-07-08 22:50:19.397 WIB [2854] LOG:  background worker "logical replication launcher" (PID 2861) exited with exit code 1
+2024-07-08 22:50:19.397 WIB [2856] LOG:  shutting down
+2024-07-08 22:50:19.416 WIB [2854] LOG:  database system is shut down
+2024-07-09 14:18:05.207 WIB [4420] LOG:  starting PostgreSQL 12.17 on x86_64-apple-darwin13.4.0, compiled by clang version 14.0.6, 64-bit
+2024-07-09 14:18:05.210 WIB [4420] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-09 14:18:05.210 WIB [4420] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-09 14:18:05.211 WIB [4420] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-09 14:18:05.231 WIB [4421] LOG:  database system was shut down at 2024-07-08 22:50:19 WIB
+2024-07-09 14:18:05.242 WIB [4420] LOG:  database system is ready to accept connections
+2024-07-09 16:36:14.419 WIB [4420] LOG:  received smart shutdown request
+2024-07-09 16:36:14.423 WIB [4420] LOG:  background worker "logical replication launcher" (PID 4427) exited with exit code 1
+2024-07-09 16:36:14.423 WIB [4422] LOG:  shutting down
+2024-07-09 16:36:14.434 WIB [4420] LOG:  database system is shut down
+2024-07-12 14:34:35.034 WIB [3015] LOG:  starting PostgreSQL 12.17 on arm64-apple-darwin20.0.0, compiled by clang version 14.0.6, 64-bit
+2024-07-12 14:34:35.036 WIB [3015] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-12 14:34:35.036 WIB [3015] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-12 14:34:35.037 WIB [3015] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-12 14:34:35.048 WIB [3016] LOG:  database system was shut down at 2024-07-09 16:36:14 WIB
+2024-07-12 14:34:35.052 WIB [3015] LOG:  database system is ready to accept connections
+2024-07-12 14:36:34.350 WIB [3015] LOG:  received fast shutdown request
+2024-07-12 14:36:34.350 WIB [3015] LOG:  aborting any active transactions
+2024-07-12 14:36:34.351 WIB [3015] LOG:  background worker "logical replication launcher" (PID 3022) exited with exit code 1
+2024-07-12 14:36:34.351 WIB [3017] LOG:  shutting down
+2024-07-12 14:36:34.356 WIB [3015] LOG:  database system is shut down
+2024-07-15 07:51:24.845 WIB [1412] LOG:  starting PostgreSQL 12.17 on arm64-apple-darwin20.0.0, compiled by clang version 14.0.6, 64-bit
+2024-07-15 07:51:24.847 WIB [1412] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-15 07:51:24.847 WIB [1412] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-15 07:51:24.847 WIB [1412] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-15 07:51:24.855 WIB [1413] LOG:  database system was shut down at 2024-07-12 14:36:34 WIB
+2024-07-15 07:51:24.860 WIB [1412] LOG:  database system is ready to accept connections
+2024-07-15 08:05:34.957 WIB [1412] LOG:  received fast shutdown request
+2024-07-15 08:05:34.957 WIB [1412] LOG:  aborting any active transactions
+2024-07-15 08:05:34.958 WIB [1412] LOG:  background worker "logical replication launcher" (PID 1419) exited with exit code 1
+2024-07-15 08:05:34.958 WIB [1414] LOG:  shutting down
+2024-07-15 08:05:34.963 WIB [1412] LOG:  database system is shut down
+2024-07-16 08:01:43.374 WIB [1150] LOG:  starting PostgreSQL 12.17 on arm64-apple-darwin20.0.0, compiled by clang version 14.0.6, 64-bit
+2024-07-16 08:01:43.376 WIB [1150] LOG:  listening on IPv6 address "::1", port 5432
+2024-07-16 08:01:43.376 WIB [1150] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-07-16 08:01:43.377 WIB [1150] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-07-16 08:01:43.383 WIB [1151] LOG:  database system was shut down at 2024-07-15 22:33:02 WIB
+2024-07-16 08:01:43.386 WIB [1150] LOG:  database system is ready to accept connections
+2024-07-16 08:03:27.361 WIB [1150] LOG:  received fast shutdown request
+2024-07-16 08:03:27.362 WIB [1150] LOG:  aborting any active transactions
+2024-07-16 08:03:27.363 WIB [1150] LOG:  background worker "logical replication launcher" (PID 1157) exited with exit code 1
+2024-07-16 08:03:27.363 WIB [1152] LOG:  shutting down
+2024-07-16 08:03:27.369 WIB [1150] LOG:  database system is shut down
